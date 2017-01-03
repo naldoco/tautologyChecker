@@ -11,6 +11,19 @@ p1 = And (Var 'A') (Not  (Var 'A'))
 p2 :: Prop
 p2 =  Imply (And (Var 'A') (Var 'B')) (Var 'A')
 
+p3 :: Prop
+p3 =  Imply (Var 'A') (And (Var 'A') (Var 'B'))
+
+p4 :: Prop
+p4 =  Imply (And (Var 'A') (Imply (Var 'A') (Var 'B'))) (Var 'B')
+
+      
+ps :: [Prop]
+ps = [p1,p2,p3,p4]
+
+psAnswers :: [Bool]
+psAnswers =  [False, True, False, True]
+
 p7 :: Prop
 p7 = And (Var 'A') (Not  (Var 'B'))
 
@@ -20,6 +33,9 @@ aFbT = [('A', False), ('B', True)]
 p2v :: [Char]
 p2v = ['A', 'B', 'A']
 
+p3v :: [Char]
+p3v = ['A', 'A', 'B']
+       
 bools2 :: [[Bool]]
 bools2 = [[False,False],[False,True],[True,False],[True,True]]
 
@@ -32,6 +48,7 @@ bools3 = [[False,False,False],
           [True ,False,True ],
           [True ,True ,False],
           [True ,True ,True ]]
+
 p1s :: [Subst]
 p1s = [[('A', True)], [('A', False)]]
 p2s :: [Subst]
@@ -44,6 +61,10 @@ tautologyCheckerSuite =
         [ testCase ("isTaut ("++(show p1)++") -> "++show False) $
             (isTaut p1) @?= False
         ]
+    , testGroup "isTaut" $ map ( \(p, answ) ->
+          testCase ("isTaut ("++show p ++ ") -> " ++show answ) $
+            (isTaut p) @?= answ)
+            (zip ps psAnswers)
     , testGroup "eval"
         [ testCase ("eval ("++(show aFbT)++") ("++(show p7)++") -> "++show False) $
             (eval aFbT p7) @?= False
@@ -51,10 +72,14 @@ tautologyCheckerSuite =
     , testGroup "vars"
         [ testCase ("vars ("++(show p2)++") -> "++show p2v) $
             (vars p2) @?= p2v
+        , testCase ("vars ("++(show p3)++") -> "++show p3v) $
+            (vars p3) @?= p3v
         ]
     , testGroup "bools"
         [ testCase ("bools "++ "2"++" -> "++show bools2) $
             (bools 2) @?= bools2
+        , testCase ("bools "++ "3"++" -> "++show bools3) $
+            (bools 3) @?= bools3
         ]
     , testGroup "substs"
         [ testCase ("substs ("++(show p2)++") -> "++show p2s) $
