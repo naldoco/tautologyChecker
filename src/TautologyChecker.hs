@@ -36,3 +36,6 @@ bools :: Int -> [[Bool]]
 bools 0 = [[]]
 bools n = map (False:) bss ++ map (True:) bss
           where bss = bools (n-1)
+
+substs :: Prop -> [Subst]
+substs = undefined
