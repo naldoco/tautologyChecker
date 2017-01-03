@@ -17,5 +17,10 @@ isTaut :: Prop -> Bool
 isTaut _ = False
 
 eval :: Subst -> Prop -> Bool
-eval = undefined
+eval _ (Const   b) = b
+eval s (Var     x) = find x s
+eval s (Not     p) = not (eval s p)
+eval s (And   p q) = eval s p && eval s q
+eval s (Or    p q) = eval s p || eval s q
+eval s (Imply p q) = eval s p <= eval s q
                      
