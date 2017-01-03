@@ -17,12 +17,17 @@ p3 =  Imply (Var 'A') (And (Var 'A') (Var 'B'))
 p4 :: Prop
 p4 =  Imply (And (Var 'A') (Imply (Var 'A') (Var 'B'))) (Var 'B')
 
-      
+p5 :: Prop   -- ¬(p∧q) ⇔ ¬p∨¬q
+p5 = Equiv (Not (And (Var 'A') (Var 'B'))) (Or  (Not (Var 'A')) (Not (Var 'B')))
+
+p6 :: Prop   -- ¬(p∨q) ⇔ ¬p∧¬q
+p6 = Equiv (Not (Or  (Var 'A') (Var 'B'))) (And (Not (Var 'A')) (Not (Var 'B')))
+
 ps :: [Prop]
-ps = [p1,p2,p3,p4]
+ps = [p1,p2,p3,p4,p5,p6]
 
 psAnswers :: [Bool]
-psAnswers =  [False, True, False, True]
+psAnswers =  [False, True, False, True, True, True]
 
 p7 :: Prop
 p7 = And (Var 'A') (Not  (Var 'B'))
