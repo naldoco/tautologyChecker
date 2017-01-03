@@ -24,3 +24,5 @@ eval s (And   p q) = eval s p && eval s q
 eval s (Or    p q) = eval s p || eval s q
 eval s (Imply p q) = eval s p <= eval s q
                      
+vars :: Prop -> [Char]
+vars = undefined
