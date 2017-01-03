@@ -20,6 +20,8 @@ aFbT = [('A', False), ('B', True)]
 p2v :: [Char]
 p2v = ['A', 'B', 'A']
 
+bools2 :: [[Bool]]
+bools2 = [[False,False],[False,True],[True,False],[True,True]]
 
 
 tautologyCheckerSuite :: TestTree
@@ -36,6 +38,10 @@ tautologyCheckerSuite =
     , testGroup "vars"
         [ testCase ("vars ("++(show p2)++") -> "++show p2v) $
             (vars p2) @?= p2v
+        ]
+    , testGroup "bools"
+        [ testCase ("bools "++ "2"++" -> "++show bools2) $
+            (bools 2) @?= bools2
         ]
     ]
 main = defaultMain tautologyCheckerSuite
