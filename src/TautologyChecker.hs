@@ -33,4 +33,6 @@ vars (Or    p q) = vars p ++ vars q
 vars (Imply p q) = vars p ++ vars q
 
 bools :: Int -> [[Bool]]
-bools = undefined
+bools 0 = [[]]
+bools n = map (False:) bss ++ map (True:) bss
+          where bss = bools (n-1)
