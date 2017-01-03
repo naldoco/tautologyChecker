@@ -14,7 +14,7 @@ find :: Eq k => k -> Assoc k v -> v
 find k t = head [v | (k', v) <- t, k == k']
     
 isTaut :: Prop -> Bool
-isTaut = undefined
+isTaut p = and [eval s p | s <- substs p]
 
 eval :: Subst -> Prop -> Bool
 eval _ (Const   b) = b
