@@ -25,4 +25,9 @@ eval s (Or    p q) = eval s p || eval s q
 eval s (Imply p q) = eval s p <= eval s q
                      
 vars :: Prop -> [Char]
-vars = undefined
+vars (Const   _) = []
+vars (Var     x) = [x]
+vars (Not     p) = vars p
+vars (And   p q) = vars p ++ vars q
+vars (Or    p q) = vars p ++ vars q
+vars (Imply p q) = vars p ++ vars q
