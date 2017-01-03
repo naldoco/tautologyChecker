@@ -8,4 +8,4 @@ data Prop = Const Bool
 
 -- First past the post
 isTaut :: Prop -> Bool
-isTaut = undefined
+isTaut _ = False
